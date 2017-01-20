@@ -1,0 +1,38 @@
+<idea-plugin version="2">
+  <id>com.naughtyserver</id>
+  <name>Paneful</name>
+  <version>1.0</version>
+  <vendor email="paneful@naughtyserver.com" url="http://www.naughtyserver.com">Naughty Server Ltd</vendor>
+
+  <description><![CDATA[
+       Tiny plugin to grow the current pane in a split pane editor window.
+       Mapped in Default OSX default key mapping to ctrl+alt+UP (cursor key)
+       cycles through 30% 50% 70%
+    ]]></description>
+
+  <change-notes><![CDATA[
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="145.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="enbiggen" class="Enbiggener" text="EnBiggen" description="Enbiggens your window">
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt UP"/>
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+    </action>
+  </actions>
+
+</idea-plugin>
