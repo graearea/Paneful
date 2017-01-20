@@ -11,7 +11,7 @@ import com.intellij.openapi.ui.Splitter;
 import javax.swing.*;
 import java.awt.*;
 
-public class Enbiggener extends AnAction {
+public class Ensmallener extends AnAction {
 
     @Override
     public void update(AnActionEvent e) {
@@ -40,11 +40,11 @@ public class Enbiggener extends AnAction {
             final Component child = ((JPanel) component).getComponent(0);
             if (child instanceof Splitter) {
                 final Splitter splitter = (Splitter) child;
-                splitter.setProportion(Resizer.growProportion(splitter, isLeftWindow));
+
+                splitter.setProportion(Resizer.growProportion(splitter, !isLeftWindow));
 
             }
         }
     }
-
 
 }
