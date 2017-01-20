@@ -6,8 +6,8 @@
 
   <description><![CDATA[
        Tiny plugin to grow the current pane in a split pane editor window.
-       Mapped in Default OSX default key mapping to ctrl+alt+UP (cursor key)
-       cycles through 30% 50% 70%
+       Mapped in Default OSX default key mapping to ctrl+alt+UP and ctrl+alt+DOWN (cursor key)
+       resizes through 30% - 70%
     ]]></description>
 
   <change-notes><![CDATA[

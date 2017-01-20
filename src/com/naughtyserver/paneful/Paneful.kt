@@ -1,4 +1,5 @@
 package com.naughtyserver.paneful
+
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -8,7 +9,7 @@ import com.intellij.openapi.ui.Splitter
 import javax.swing.JPanel
 
 
-abstract class ResizeAction(val grows: Boolean) : AnAction() {
+abstract class ResizeAction(val grow: Boolean) : AnAction() {
     override fun update(event: AnActionEvent) {
         val project = event.getData(CommonDataKeys.PROJECT)
         val editor = event.getData(CommonDataKeys.EDITOR)
@@ -24,36 +25,47 @@ abstract class ResizeAction(val grows: Boolean) : AnAction() {
 
         val isLeftWindow = splitters.windows[0] == splitters.currentWindow
 
+
         val component = splitters.getComponent(0)
 
         if (component is JPanel && component.componentCount > 0) {
             val child = component.getComponent(0)
             if (child is Splitter) {
-                child.proportion = Resizer.growProportion(child, grows && isLeftWindow)
+                child.proportion = Resizer.growProportion(grow, isLeftWindow, child.proportion)
 
             }
         }
     }
 }
 
+
 class Enbiggener : ResizeAction(true)
 
 class Ensmallener : ResizeAction(false)
 
 internal object Resizer {
-    fun growProportion(splitter: Splitter, makeLeftWindowBigger: Boolean): Float {
+    fun growProportion(grow: Boolean, isLeftWindow: Boolean, splitterProportion: Float): Float {
         val rightSplit = 7
         val leftSplit = 3
-        val currentSplit = (splitter.proportion*10).toInt()
+        val currentSplit = (splitterProportion * 10).toInt()
 
-        if (makeLeftWindowBigger && currentSplit >= rightSplit) {
-            return toProportionFromInt(rightSplit)
-        } else if (!makeLeftWindowBigger && currentSplit <= leftSplit) {
-            return toProportionFromInt(leftSplit)
+        if (isLeftWindow) {
+            if (grow && currentSplit >= rightSplit) {
+                return toProportionFromInt(rightSplit)
+            } else if (!grow && currentSplit <= leftSplit) {
+                return toProportionFromInt(leftSplit)
+            } else
+                return toProportionFromInt(currentSplit + if (grow) 1 else -1)
         } else {
-            return toProportionFromInt(currentSplit + if (makeLeftWindowBigger) 1 else -1)
-        }
+            if (grow && currentSplit <= leftSplit) {
+                return toProportionFromInt(leftSplit)
+            } else if (!grow && currentSplit >= rightSplit) {
+                return toProportionFromInt(rightSplit)
+            } else {
+                return toProportionFromInt(currentSplit + if (grow) -1 else 1)
+            }
 
+        }
     }
 
     private fun toProportionFromInt(leftSplit: Int) = leftSplit / 10f
