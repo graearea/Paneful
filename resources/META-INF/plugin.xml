@@ -29,11 +29,11 @@
 
   <actions>
     <!-- Add your actions here -->
-    <action id="enbiggen" class="Enbiggener" text="EnBiggen" description="Enbiggens your editor pane">
+    <action id="enbiggen" class="com.naughtyserver.paneful.Enbiggener" text="EnBiggen" description="Enbiggens your editor pane">
       <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt UP"/>
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
     </action>
-    <action id="ensmallen" class="Ensmallener" text="Ensmallen" description="Ensmallens your editor pane">
+    <action id="ensmallen" class="com.naughtyserver.paneful.Ensmallener" text="EnSmallen" description="Ensmallens your editor pane">
       <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt DOWN"/>
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
     </action>
