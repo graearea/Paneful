@@ -6,74 +6,59 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.impl.FileEditorManagerImpl
 import com.intellij.openapi.ui.Splitter
+import com.intellij.openapi.wm.ToolWindowManager
+import com.intellij.openapi.wm.impl.ToolWindowImpl
+import com.intellij.openapi.wm.impl.ToolWindowManagerImpl
+import com.naughtyserver.paneful.Action.CENTER
 import com.naughtyserver.paneful.Action.GROW
 import com.naughtyserver.paneful.Action.SHRINK
-import com.naughtyserver.paneful.Window.LEFT_PANE
-import com.naughtyserver.paneful.Window.RIGHT_PANE
+import com.naughtyserver.paneful.SplitterResizer.moveHorizontalSplitter
+import com.naughtyserver.paneful.SplitterResizer.resizeToolWindow
 import javax.swing.JPanel
 
+class Entallener : ResizeVerticallyAction(GROW)
+class Enshortener : ResizeVerticallyAction(SHRINK)
+class Encenterer : ResizeVerticallyAction(CENTER)
 
-abstract class ResizeAction(val action: Action) : AnAction() {
-    override fun update(event: AnActionEvent) {
-        val project = event.getData(CommonDataKeys.PROJECT)
-        val editor = event.getData(CommonDataKeys.EDITOR)
+class Enrightener : ResizeHorizontallyAction(GROW)
+class Enleftener : ResizeHorizontallyAction(SHRINK)
 
-        //Set visibility only in case of existing project and editor
-        event.presentation.isVisible = project != null && editor != null
+abstract class ResizeVerticallyAction(action: Action) : NoDisplayAction(action) {
+
+    override fun actionPerformed(anActionEvent: AnActionEvent) {
+        val project = anActionEvent.project
+        val toolWindowManager = ToolWindowManager.getInstance(project!!) as ToolWindowManagerImpl
+        val toolWindow = toolWindowManager.getToolWindow(toolWindowManager.lastActiveToolWindowId) as ToolWindowImpl
+        val maxHeight = toolWindow.component.rootPane.height
+        val currentHeight = toolWindow.component.height
+
+        toolWindow.stretchHeight(resizeToolWindow(action, maxHeight, currentHeight))
     }
+}
+abstract class ResizeHorizontallyAction(action: Action) : NoDisplayAction(action) {
 
     override fun actionPerformed(anActionEvent: AnActionEvent) {
         val project = anActionEvent.project
         val fileEditorManager = FileEditorManager.getInstance(project!!) as FileEditorManagerImpl
         val splitters = fileEditorManager.splitters
-
-        val window = if (splitters.windows[0] == splitters.currentWindow) LEFT_PANE else RIGHT_PANE
-
-
         val component = splitters.getComponent(0)
 
         if (component is JPanel && component.componentCount > 0) {
             val child = component.getComponent(0)
             if (child is Splitter) {
-                child.proportion = Resizer.movePane(action, window, child.proportion)
-
+                child.proportion = moveHorizontalSplitter(action, child.proportion)
             }
         }
     }
 }
+enum class Action(val value: kotlin.Int) { GROW(1), SHRINK(-1), CENTER(0) }
 
-enum class Action(val value: kotlin.Int) { GROW(1), SHRINK(-1) }
 
-enum class Window { LEFT_PANE, RIGHT_PANE }
-
-class Enbiggener : ResizeAction(GROW)
-
-class Ensmallener : ResizeAction(SHRINK)
-
-internal object Resizer {
-    fun movePane(action: Action, window: Window, splitterProportion: Float): Float {
-        val rightSplit = 7
-        val leftSplit = 3
-        val currentSplit = (splitterProportion * 10).toInt()
-
-        if (window==LEFT_PANE) {
-            if (action == GROW && currentSplit >= rightSplit) {
-                return toProportionFromInt(rightSplit)
-            } else if (action == SHRINK && currentSplit <= leftSplit) {
-                return toProportionFromInt(leftSplit)
-            } else
-                return toProportionFromInt(currentSplit + action.value)
-        } else {
-            if (action == GROW && currentSplit <= leftSplit) {
-                return toProportionFromInt(leftSplit)
-            } else if (action == SHRINK && currentSplit >= rightSplit) {
-                return toProportionFromInt(rightSplit)
-            } else {
-                return toProportionFromInt(currentSplit + (action.value * -1))
-            }
-
-        }
+abstract class NoDisplayAction(val action: Action) : AnAction() {
+    override fun update(event: AnActionEvent) {
+        val project = event.getData(CommonDataKeys.PROJECT)
+        val editor = event.getData(CommonDataKeys.EDITOR)
+        event.presentation.isVisible = project != null && editor != null
     }
-
-    private fun toProportionFromInt(proportion: Int) = proportion / 10f
 }
+
