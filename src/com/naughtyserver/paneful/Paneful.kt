@@ -7,6 +7,7 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.impl.FileEditorManagerImpl
 import com.intellij.openapi.ui.Splitter
 import com.intellij.openapi.wm.ToolWindowManager
+import com.intellij.openapi.wm.impl.InternalDecorator
 import com.intellij.openapi.wm.impl.ToolWindowImpl
 import com.intellij.openapi.wm.impl.ToolWindowManagerImpl
 import com.naughtyserver.paneful.Action.CENTER
@@ -14,6 +15,7 @@ import com.naughtyserver.paneful.Action.GROW
 import com.naughtyserver.paneful.Action.SHRINK
 import com.naughtyserver.paneful.SplitterResizer.moveHorizontalSplitter
 import com.naughtyserver.paneful.SplitterResizer.resizeToolWindow
+import java.awt.Container
 import javax.swing.JPanel
 
 class Entallener : ResizeVerticallyAction(GROW)
@@ -28,13 +30,21 @@ abstract class ResizeVerticallyAction(action: Action) : NoDisplayAction(action) 
     override fun actionPerformed(anActionEvent: AnActionEvent) {
         val project = anActionEvent.project
         val toolWindowManager = ToolWindowManager.getInstance(project!!) as ToolWindowManagerImpl
-        val toolWindow = toolWindowManager.getToolWindow(toolWindowManager.lastActiveToolWindowId) as ToolWindowImpl
+        val toolWindow: ToolWindowImpl = toolWindowManager.getToolWindow(toolWindowManager.getLastActiveToolWindowId({
+            comp -> onTheBottom(comp.parent)
+        })) as ToolWindowImpl ?: return
+
         val maxHeight = toolWindow.component.rootPane.height
         val currentHeight = toolWindow.component.height
 
         toolWindow.stretchHeight(resizeToolWindow(action, maxHeight, currentHeight))
     }
+
+    private fun onTheBottom(ting: Container): Boolean {
+        return if (ting !is InternalDecorator) onTheBottom(ting.parent) else ting.y > 0
+    }
 }
+
 abstract class ResizeHorizontallyAction(action: Action) : NoDisplayAction(action) {
 
     override fun actionPerformed(anActionEvent: AnActionEvent) {
@@ -51,8 +61,8 @@ abstract class ResizeHorizontallyAction(action: Action) : NoDisplayAction(action
         }
     }
 }
-enum class Action(val value: kotlin.Int) { GROW(1), SHRINK(-1), CENTER(0) }
 
+enum class Action(val value: kotlin.Int) { GROW(1), SHRINK(-1), CENTER(0) }
 
 abstract class NoDisplayAction(val action: Action) : AnAction() {
     override fun update(event: AnActionEvent) {

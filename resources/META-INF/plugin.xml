@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.naughtyserver</id>
   <name>Paneful</name>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
   <vendor email="paneful@naughtyserver.com" url="http://www.naughtyserver.com">Naughty Server Ltd</vendor>
 
   <description><![CDATA[
@@ -30,34 +30,34 @@
   <actions>
     <!-- Add your actions here -->
     <action id="encenter" class="com.naughtyserver.paneful.Encenterer" text="EnCenter" description="Moves the editor pane splitter center">
-      <keyboard-shortcut keymap="$default" first-keystroke="ctrl 5"/>
-      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl 5"/>
-      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl 5"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl NUMPAD5"/>
+      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl NUMPAD5"/>
+      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl NUMPAD5"/>
 
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
     </action>
     <action id="enrighten" class="com.naughtyserver.paneful.Enrightener" text="EnRighten" description="Moves the editor pane splitter right">
-      <keyboard-shortcut keymap="$default" first-keystroke="ctrl 6"/>
-      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl 6"/>
-      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl 6"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl NUMPAD6"/>
+      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl NUMPAD6"/>
+      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl NUMPAD6"/>
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
     </action>
     <action id="enleften" class="com.naughtyserver.paneful.Enleftener" text="EnLeften" description="Moves the editor pane splitter left">
-      <keyboard-shortcut keymap="$default" first-keystroke="ctrl 4"/>
-      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl 4"/>
-      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl 4"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl NUMPAD4"/>
+      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl NUMPAD4"/>
+      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl NUMPAD4"/>
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
     </action>
     <action id="entallen" class="com.naughtyserver.paneful.Entallener" text="EnTallen" description="Entallens your editor pane">
-      <keyboard-shortcut keymap="$default" first-keystroke="ctrl 8"/>
-      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl 8"/>
-      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl 8"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl NUMPAD8"/>
+      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl NUMPAD8"/>
+      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl NUMPAD8"/>
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
     </action>
     <action id="enshorten" class="com.naughtyserver.paneful.Enshortener" text="EnShorten" description="Enshortens your editor pane">
-      <keyboard-shortcut keymap="$default" first-keystroke="ctrl 2"/>
-      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl 2"/>
-      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl 2"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl NUMPAD2"/>
+      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl NUMPAD2"/>
+      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl NUMPAD2"/>
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
     </action>
   </actions>
