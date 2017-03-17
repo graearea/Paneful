@@ -32,7 +32,7 @@ abstract class ResizeVerticallyAction(action: Action) : NoDisplayAction(action) 
         val toolWindowManager = ToolWindowManager.getInstance(project!!) as ToolWindowManagerImpl
         val toolWindow: ToolWindowImpl = toolWindowManager.getToolWindow(toolWindowManager.getLastActiveToolWindowId({
             comp -> onTheBottom(comp.parent)
-        })) as ToolWindowImpl ?: return
+        })) as ToolWindowImpl? ?: return
 
         val maxHeight = toolWindow.component.rootPane.height
         val currentHeight = toolWindow.component.height
@@ -41,7 +41,7 @@ abstract class ResizeVerticallyAction(action: Action) : NoDisplayAction(action) 
     }
 
     private fun onTheBottom(ting: Container): Boolean {
-        return if (ting !is InternalDecorator) onTheBottom(ting.parent) else ting.y > 0
+        return if (ting !is InternalDecorator&& ting.parent!=null) onTheBottom(ting.parent) else ting.y > 0
     }
 }
 
