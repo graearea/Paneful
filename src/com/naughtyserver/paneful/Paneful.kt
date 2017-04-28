@@ -20,8 +20,8 @@ import javax.swing.JPanel
 
 class Entallener : ResizeVerticallyAction(GROW)
 class Enshortener : ResizeVerticallyAction(SHRINK)
-class Encenterer : ResizeVerticallyAction(CENTER)
 
+class Encenterer : ResizeHorizontallyAction(CENTER)
 class Enrightener : ResizeHorizontallyAction(GROW)
 class Enleftener : ResizeHorizontallyAction(SHRINK)
 
@@ -31,7 +31,7 @@ abstract class ResizeVerticallyAction(action: Action) : NoDisplayAction(action) 
         val project = anActionEvent.project
         val toolWindowManager = ToolWindowManager.getInstance(project!!) as ToolWindowManagerImpl
         val toolWindow: ToolWindowImpl = toolWindowManager.getToolWindow(toolWindowManager.getLastActiveToolWindowId({
-            comp -> onTheBottom(comp.parent)
+            it.parent.onTheBottom()
         })) as ToolWindowImpl? ?: return
 
         val maxHeight = toolWindow.component.rootPane.height
@@ -40,9 +40,7 @@ abstract class ResizeVerticallyAction(action: Action) : NoDisplayAction(action) 
         toolWindow.stretchHeight(resizeToolWindow(action, maxHeight, currentHeight))
     }
 
-    private fun onTheBottom(ting: Container): Boolean {
-        return if (ting !is InternalDecorator&& ting.parent!=null) onTheBottom(ting.parent) else ting.y > 0
-    }
+    private fun Container.onTheBottom(): Boolean = if (this !is InternalDecorator&& parent !=null) parent.onTheBottom() else y > 0
 }
 
 abstract class ResizeHorizontallyAction(action: Action) : NoDisplayAction(action) {
