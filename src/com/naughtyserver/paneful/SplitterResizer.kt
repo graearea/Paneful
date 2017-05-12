@@ -18,7 +18,7 @@ internal object SplitterResizer {
 
     fun resizeToolWindow(action: Action, maxHeight: Int, current: Int): Int {
         return when {
-            action == Action.GROW && maxHeight - STRETCH_AMOUNT > current -> (STRETCH_AMOUNT * action.value)
+            action == Action.GROW && maxHeight - (STRETCH_AMOUNT+50) > current -> (STRETCH_AMOUNT * action.value)
             action == Action.SHRINK && current > STRETCH_AMOUNT -> (STRETCH_AMOUNT * action.value)
             else -> 0
         }
