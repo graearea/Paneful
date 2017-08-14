@@ -1,17 +1,17 @@
 <idea-plugin version="2">
   <id>com.naughtyserver</id>
   <name>Paneful</name>
-  <version>1.1.2</version>
+  <version>1.1.4</version>
   <vendor email="paneful@naughtyserver.com" url="http://www.naughtyserver.com">Naughty Server Ltd</vendor>
 
   <description><![CDATA[
        Tiny plugin to grow the current pane in a split pane editor window.
-       Mapped in Default OSX default key mapping to ctrl+KEYPAD4 and ctrl+KEYPAD6 (cursor key) resizes through 30% - 70%.
+       Mapped in Default OSX default key mapping, ctrl+KEYPAD4 and ctrl+KEYPAD6 (cursor key) resizes through 10% - 90%.
        ctrl+KEYPAD5 Centers the splitter
        ctrl+KEYPAD8 and ctrl+KEYPAD2 will move the tool pane window up and down.
     ]]></description>
 
-  <change-notes><![CDATA[
+  <change-notes><![CDATA[fixed bug with it getting too big and then not able to shrink anymore
     ]]>
   </change-notes>
 

@@ -2,8 +2,8 @@ package com.naughtyserver.paneful
 
 internal object SplitterResizer {
     fun moveHorizontalSplitter(action: Action, splitterProportion: Float): Float {
-        val maxRight = 7
-        val maxLeft = 3
+        val maxRight = 9
+        val maxLeft = 1
         val currentSplit = (splitterProportion * 10).toInt()
 
         return when {

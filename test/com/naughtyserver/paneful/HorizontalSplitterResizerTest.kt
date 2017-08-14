@@ -9,8 +9,8 @@ import org.junit.Test
 
 class HorizontalSplitterResizerTest {
 
-    private val minSize = 0.3f
-    private val maxSize = 0.7f
+    private val minSize = 0.1f
+    private val maxSize = 0.9f
 
     @Test
     fun shouldCentreSplitter() {
@@ -19,14 +19,14 @@ class HorizontalSplitterResizerTest {
 
     @Test
     fun shouldGrow() {
-        assertEquals(moveHorizontalSplitter(GROW, minSize), 0.4f)
+        assertEquals(moveHorizontalSplitter(GROW, minSize), 0.2f)
         assertEquals(moveHorizontalSplitter(GROW, 0.5f), 0.6f)
     }
 
     @Test
     fun shouldShrink() {
         assertEquals(moveHorizontalSplitter(SHRINK, 0.5f), 0.4f)
-        assertEquals(moveHorizontalSplitter(SHRINK, maxSize), 0.6f)
+        assertEquals(moveHorizontalSplitter(SHRINK, maxSize), 0.8f)
     }
 
     @Test
