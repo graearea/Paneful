@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.naughtyserver</id>
   <name>Paneful</name>
-  <version>1.1.5</version>
+  <version>1.1.4</version>
   <vendor email="paneful@naughtyserver.com" url="http://www.naughtyserver.com">Naughty Server Ltd</vendor>
 
   <description><![CDATA[
