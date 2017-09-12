@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.naughtyserver</id>
   <name>Paneful</name>
-  <version>1.1.4</version>
+  <version>1.1.5</version>
   <vendor email="paneful@naughtyserver.com" url="http://www.naughtyserver.com">Naughty Server Ltd</vendor>
 
   <description><![CDATA[
@@ -11,7 +11,7 @@
        ctrl+KEYPAD8 and ctrl+KEYPAD2 will move the tool pane window up and down.
     ]]></description>
 
-  <change-notes><![CDATA[fixed bug with it getting too big and then not able to shrink anymore
+  <change-notes><![CDATA[grow panes to be as big as you want now
     ]]>
   </change-notes>
 
